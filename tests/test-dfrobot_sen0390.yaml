@@ -1,0 +1,32 @@
+# Exercises every option the dfrobot_sen0390 schema accepts, so `esphome compile`
+# walks each generated C++ path.
+esphome:
+  name: test-dfrobot-sen0390
+
+esp32:
+  board: esp32-c3-devkitm-1
+  framework:
+    type: esp-idf
+
+logger:
+
+external_components:
+  - source:
+      type: local
+      path: ../components
+    components: [dfrobot_sen0390]
+
+i2c:
+  sda: GPIO2
+  scl: GPIO1
+  id: bus_main
+
+sensor:
+  - platform: dfrobot_sen0390
+    i2c_id: bus_main
+    address: 0x4A
+    update_interval: 60s
+    lux:
+      name: "Light"
+    raw:
+      name: "Light Raw Bytes"
